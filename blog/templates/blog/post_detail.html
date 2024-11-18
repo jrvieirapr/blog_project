@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p><strong>Author:</strong> {{ post.author }}</p>
+<p><strong>Published on:</strong> {{ post.created_at }}</p>
+<p>{{ post.content }}</p>
+
+<hr>
+
+<!-- Botões para editar ou excluir o post, visíveis apenas para o autor -->
+{% if user.is_authenticated and post.author == user %}
+    <a href="{% url 'post_update' post.pk %}">Edit</a> |
+    <a href="{% url 'post_delete' post.pk %}">Delete</a>
+{% endif %}
+<a href="{% url 'home' %}">Back to Home</a>
+{% endblock %}
